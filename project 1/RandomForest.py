@@ -1,9 +1,4 @@
-# Random forrest
-
-import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
-
 
 def RF(trainingSet,trainingLabels,testSet):
     # Initialize the Classifier
