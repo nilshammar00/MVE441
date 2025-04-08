@@ -4,7 +4,7 @@ from sklearn.decomposition import PCA
 from sklearn.neural_network import MLPClassifier
 import os
 
-def read_mnist_txtPCA(file_path):
+def read_mnist_txt(file_path):
     images = []
     labels = []
     
@@ -34,7 +34,7 @@ def read_mnist_txtPCA(file_path):
     return images, labels
 
 
-def dataPrepPCA(images, labels):
+def dataPrep(images, labels):
     randomIndices = np.random.permutation(len(images))
     images = np.array(images)[randomIndices]
     labels = np.array(labels)[randomIndices]
@@ -46,16 +46,17 @@ def dataPrepPCA(images, labels):
     print('Shape of training set:', trainingSet.shape)
     print('Shape of test set:', testSet.shape)
     
-# Reshape for PCA-algorithm
+
+
+    return trainingSet, trainingLabels, testSet, testSetLabels
+
+
+def dimRedPCA(trainingSet, testSet, trainVariance = .95):
+    # Reshape for PCA-algorithm
     xTrain = trainingSet.reshape(1800, 256)
     xTest = testSet.reshape(200, 256)
     print('Trainset shape post transform:', xTrain.shape)
     print('Testset shape posst transform:', xTest.shape)
-    print
-    return trainingSet, trainingLabels, testSet, testSetLabels, xTrain, xTest
-
-
-def dimRedPCA(xTrain, xTest, trainVariance = .95):
      # How much of the original variance is retained through the PCA
     pca = PCA(n_components=trainVariance)
     pca.fit(xTrain) # fit the PCA to the training data
@@ -69,7 +70,7 @@ def dimRedPCA(xTrain, xTest, trainVariance = .95):
     
 
 def dataNNClassifier(trainingLabels, trainingData, testLabels, testData):
-    clf = MLPClassifier(solver='sgd', activation='logistic', max_iter=7000) # sgd = stochastic gradient descent, logistic function for the hidden layer, max_iter = maximum number of itteration, but will conclude after 10 epocs without improvement
+    clf = MLPClassifier(solver='sgd', activation='logistic', max_iter=5000) # sgd = stochastic gradient descent, logistic function for the hidden layer, max_iter = maximum number of itteration, but will conclude after 10 epocs without improvement
     clf.fit(trainingData, trainingLabels)
     print('Training score:', clf.score(trainingData, trainingLabels))
     print('Testing score', clf.score(testData, testLabels))
@@ -80,11 +81,11 @@ def dataNNClassifier(trainingLabels, trainingData, testLabels, testData):
 def logisticNNPCA(filePath ='Numbers.txt', trainVariance = .95):
     # first arg defines the data set
     # Second arg sets the variance for the PCA reduction
-    images, labels = read_mnist_txtPCA(filePath)
+    images, labels = read_mnist_txt(filePath)
 
-    trainingSet, trainingLabels, testSet, testSetLabels, xTrain, xTest = dataPrepPCA(images, labels)
+    trainingSet, trainingLabels, testSet, testSetLabels = dataPrep(images, labels)
 
-    trainPCA, testPCA = dimRedPCA(xTrain, xTest, trainVariance)
+    trainPCA, testPCA = dimRedPCA(trainingSet, testSet, trainVariance)
 
     predictedLabels = dataNNClassifier(trainingLabels, trainPCA, testSetLabels, testPCA)
     print(predictedLabels)

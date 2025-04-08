@@ -22,7 +22,7 @@ def read_mnist_txt(file_path):
     
     return images, labels
 
-def randomForestClassifier(trainingSet, trainingLabels, testSet, n_estimators):
+def randomForestClassifier(trainingSet, trainingLabels, testSet, n_estimators = 100):
     # Flatten 16x16 images to 256-length vectors for classification
     X_train = [img.flatten() for img in trainingSet]
     X_test = [img.flatten() for img in testSet]
