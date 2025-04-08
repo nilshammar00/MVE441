@@ -53,19 +53,9 @@ trainingLabels = labels[:len(images)-200]
 testSet = images[-200:]
 testSetLabels = labels[-200:]
 
-# Call the classifier
+# Call the classifier, no tuning
 predictedLabels = randomForestClassifier(trainingSet, trainingLabels, testSet, n_estimators=100)
 
 # Accuracy
 accuracy = accuracy_score(testSetLabels, predictedLabels) * 100
 print(f'Accuracy: {accuracy:.2f}%')
-
-# Visualize results
-plt.figure(figsize=(10, 5))
-for i in range(10):
-    plt.subplot(2, 5, i + 1)
-    plt.imshow(testSet[i], cmap='gray')
-    plt.title(f'Predicted: {predictedLabels[i]}')
-    plt.axis('off')
-plt.tight_layout()
-plt.show()
