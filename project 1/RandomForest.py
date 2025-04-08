@@ -42,7 +42,7 @@ def randomForestClassifier(trainingSet, trainingLabels, testSet, n_estimators):
 
 # Load and prepare data
 print(os.getcwd())
-images, labels = read_mnist_txt(r"C:\Users\rebec\OneDrive\Dokument\GitHub\MVE441\project 1\Numbers.txt")
+images, labels = read_mnist_txt('Numbers.txt')
 
 randomIndices = np.random.permutation(len(images))
 images = np.array(images)[randomIndices]
