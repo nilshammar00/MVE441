@@ -4,12 +4,10 @@ def Misslabeling(labels,percentage):
     ## randomly select percentage of labels to be mislabelled
     ## return the mislabelled labels
 
-    
     listOfLabels = []
     for i in range(len(labels)):
         if labels[i] not in listOfLabels:
             listOfLabels.append(labels[i])
-
 
     # Calculate the number of labels to mislabel
     numToMisslabel = int(len(labels) * percentage)
@@ -25,4 +23,3 @@ def Misslabeling(labels,percentage):
         misslabelledLabels[index] = newLabel
     
     return misslabelledLabels 
-    
