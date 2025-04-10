@@ -32,7 +32,7 @@ def read_mnist_txt(file_path):
     return images, labels
 
 
-def kNearestNeighboors(trainingSet,trainingLabels,testSet, k=5,norm=2):
+def kNearestNeighboors(trainingSet, trainingLabels, testSet, k=5, norm=2):
     ## find distance of each entry in testSet to each entry in trainingSet
     ## take the k nearest neighbors, and assign the label of the majority
     ## of those k neighbors to the testSet entry
