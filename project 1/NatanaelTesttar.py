@@ -53,10 +53,10 @@ def dataPrep(images, labels):
 
 
 def dataReshaper(trainingSet, testSet):
-    xTrain = trainingSet.reshape(1800, 256)
-    xTest = testSet.reshape(200, 256)
-    #print('Trainset shape post transform:', xTrain.shape)
-    #print('Testset shape posst transform:', xTest.shape)
+    xTrain = trainingSet.reshape(300, 256)
+    xTest = testSet.reshape(300, 256)
+    print('Trainset shape post transform:', xTrain.shape)
+    print('Testset shape posst transform:', xTest.shape)
     return xTrain, xTest
 
 
@@ -105,12 +105,14 @@ def randomForestClassifier(trainingSet, trainingLabels, testSet, testLabels, n_e
     
     # Train the Classifier
     rf.fit(X_train, trainingLabels)
+    print(X_test.shape) 
+    print(testSetLabels.shape)
     #print('Training error score:', 1-rf.score(X_train, trainingLabels))
     #print('Testing error score', 1-rf.score(X_test, testLabels))
     # Predict using trained classifier on testSet
-    predictedLabels = rf.predict(X_test)
-
-    return 1-rf.score(X_test, testSetLabels)
+    #predictedLabels = rf.predict(X_test)
+    
+    return 1-rf.score(X_test, testLabels)
 
 
 """
@@ -220,10 +222,12 @@ if __name__ == '__main__':
     RF3 = []
     KNN3 = []
 
-
-
+    Train1, Train2, Train3, Train4, Train5, Test6 = np.array_split(trainingSet, 6)
+    LTrain1, LTrain2, LTrain3, LTrain4, LTrain5, LTest6 = np.array_split(BasetrainingLabels, 6)
+    """
     for i in range(evalLength):
-        trainingLabels = Misslabeling(BasetrainingLabels, .1)
+        #trainingLabels = Misslabeling(BasetrainingLabels, .1)
+        trainingLabels = BasetrainingLabels
         nn = logisticNNPCA(trainingSet, trainingLabels, testSet, testSetLabels, PCATuning)
         rf = randomForest(trainingSet, trainingLabels, testSet, testSetLabels, RFTuning)
         knn = kNearestNeighboors(trainingSet, trainingLabels, testSet, testSetLabels,KNNTuning)
@@ -232,7 +236,8 @@ if __name__ == '__main__':
         KNN1.append(knn)
 
     for i in range(evalLength):
-        trainingLabels = Misslabeling(BasetrainingLabels, .15)
+        #trainingLabels = Misslabeling(BasetrainingLabels, .15)
+        trainingLabels = BasetrainingLabels
         nn = logisticNNPCA(trainingSet, trainingLabels, testSet, testSetLabels, PCATuning)
         rf = randomForest(trainingSet, trainingLabels, testSet, testSetLabels, RFTuning)
         knn = kNearestNeighboors(trainingSet, trainingLabels, testSet, testSetLabels,KNNTuning)
@@ -241,7 +246,8 @@ if __name__ == '__main__':
         KNN2.append(knn)
 
     for i in range(evalLength):
-        trainingLabels = Misslabeling(BasetrainingLabels, .3)
+        #trainingLabels = Misslabeling(BasetrainingLabels, .3)
+        trainingLabels = BasetrainingLabels
         nn = logisticNNPCA(trainingSet, trainingLabels, testSet, testSetLabels, PCATuning)
         rf = randomForest(trainingSet, trainingLabels, testSet, testSetLabels, RFTuning)
         knn = kNearestNeighboors(trainingSet, trainingLabels, testSet, testSetLabels,KNNTuning)
@@ -257,3 +263,53 @@ if __name__ == '__main__':
     plt.ylabel('Error score of model')
     plt.boxplot(missError, positions=[1,2,3,5,6,7,9,10,11], labels=['10%','NN+PCA 15%','30%', '10%','RF 15%', '30%', '10%', 'KNN 15%', '30%'])
     plt.show()
+    """
+
+
+    print(1, Train1.shape, LTrain1.shape, Test6.shape, LTest6.shape)
+    nn = logisticNNPCA(Train1, LTrain1, Test6, LTest6, PCATuning)
+    rf = randomForest(Train1, LTrain1, Test6, LTest6, RFTuning)
+    knn = kNearestNeighboors(Train1, LTrain1, Test6, LTest6 ,KNNTuning)
+    NN1.append(nn)
+    RF1.append(rf)
+    KNN1.append(knn)
+    print(2)
+    nn = logisticNNPCA(Train2, LTrain2, Test6, LTest6, PCATuning)
+    rf = randomForest(Train2, LTrain2, Test6, LTest6, RFTuning)
+    knn = kNearestNeighboors(Train2, LTrain2, Test6, LTest6 ,KNNTuning)
+    NN1.append(nn)
+    RF1.append(rf)
+    KNN1.append(knn)
+    print(3)
+    nn = logisticNNPCA(Train3, LTrain3, Test6, LTest6, PCATuning)
+    rf = randomForest(Train3, LTrain3, Test6, LTest6, RFTuning)
+    knn = kNearestNeighboors(Train3, LTrain3, Test6, LTest6 ,KNNTuning)
+    NN1.append(nn)
+    RF1.append(rf)
+    KNN1.append(knn)
+    print(4)
+    nn = logisticNNPCA(Train4, LTrain4, Test6, LTest6, PCATuning)
+    rf = randomForest(Train4, LTrain4, Test6, LTest6, RFTuning)
+    knn = kNearestNeighboors(Train4, LTrain4, Test6, LTest6 ,KNNTuning)
+    NN1.append(nn)
+    RF1.append(rf)
+    KNN1.append(knn)
+    print(5)
+    nn = logisticNNPCA(Train5, LTrain5, Test6, LTest6, PCATuning)
+    rf = randomForest(Train5, LTrain5, Test6, LTest6, RFTuning)
+    knn = kNearestNeighboors(Train5, LTrain5, Test6, LTest6 ,KNNTuning)
+    NN1.append(nn)
+    RF1.append(rf)
+    KNN1.append(knn)
+
+
+    classError = [NN1, RF1, KNN1]
+
+    plt.figure()
+    plt.title('Tuned Classifier Performance')
+    plt.xlabel('Tuned models')
+    plt.ylabel('Error score of model')
+    plt.boxplot(classError, positions=[1,3,5], labels=['NN+PCA','RF','KNN'])
+    plt.show()
+
+
