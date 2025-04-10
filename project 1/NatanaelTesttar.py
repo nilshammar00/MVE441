@@ -4,7 +4,6 @@ from sklearn.decomposition import PCA
 from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.model_selection import cross_val_score
 import os
 
@@ -137,21 +136,6 @@ def randomForest(trainingSet, trainingLabels, testSet, testSetLabels, numberEsti
     predictedLabels = randomForestClassifier(trainingSet, trainingLabels, testSet, testSetLabels, n_estimators=numberEstimators)
     #print(f"RF", predictedLabels)
     return predictedLabels
-
-
-def LDA(trainingSet, trainingLabels, testSet, testSetLabels):
-
-    xTrain = trainingSet.reshape(1800, 256)
-    xTest = testSet.reshape(200, 256)
-    lda = LinearDiscriminantAnalysis()
-    lda.fit(xTrain, trainingLabels)
-
-    predictedLabels = lda.predict(xTest)
-    #print('LDA')
-    #print(f"traindata error score", 1-lda.score(xTrain, trainingLabels))
-    #print(f"Testdata error score", 1-lda.score(xTest, testSetLabels))
-    #print(f"LDA", predictedLabels)
-    return 1-lda.score(xTest, testSetLabels)
 
 
 def kNearestNeighboors(trainingSet, trainingLabels, testSet, testSetLabels, k=5, norm=2):
