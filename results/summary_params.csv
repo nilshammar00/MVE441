@@ -1,0 +1,7 @@
+,0,1,2,3,4
+Random Forest,"{'max_depth': 9, 'n_estimators': 180}","{'max_depth': 8, 'n_estimators': 171}","{'max_depth': 8, 'n_estimators': 156}","{'max_depth': 8, 'n_estimators': 142}","{'max_depth': 8, 'n_estimators': 171}"
+Gradient Boosting,"{'learning_rate': np.float64(0.19639878836228103), 'max_depth': 2, 'n_estimators': 70}","{'learning_rate': np.float64(0.19639878836228103), 'max_depth': 2, 'n_estimators': 70}","{'learning_rate': np.float64(0.19639878836228103), 'max_depth': 2, 'n_estimators': 70}","{'learning_rate': np.float64(0.1249080237694725), 'max_depth': 2, 'n_estimators': 64}","{'learning_rate': np.float64(0.19639878836228103), 'max_depth': 2, 'n_estimators': 70}"
+Logistic Regression,{'C': np.float64(0.5908361216819946)},{'C': np.float64(0.5908361216819946)},{'C': np.float64(0.5908361216819946)},{'C': np.float64(0.5908361216819946)},{'C': np.float64(0.5908361216819946)}
+SVM (RBF Kernel),"{'C': np.float64(3.845401188473625), 'gamma': 'scale'}","{'C': np.float64(1.934347898661638), 'gamma': 'auto'}","{'C': np.float64(3.845401188473625), 'gamma': 'scale'}","{'C': np.float64(1.934347898661638), 'gamma': 'auto'}","{'C': np.float64(1.934347898661638), 'gamma': 'auto'}"
+RDA (QDA+reg),{'reg_param': np.float64(0.8661761457749352)},{'reg_param': np.float64(0.8661761457749352)},{'reg_param': np.float64(0.8661761457749352)},{'reg_param': np.float64(0.7319939418114051)},{'reg_param': np.float64(0.8661761457749352)}
+k-NN,{'n_neighbors': 13},{'n_neighbors': 10},{'n_neighbors': 10},{'n_neighbors': 12},{'n_neighbors': 13}
